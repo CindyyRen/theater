@@ -1,11 +1,11 @@
 import './App.css';
-
+import pt from 'prop-types';
 
 import React, { Component } from 'react';
 import Film from './component/Film';
 import Cinema from './component/Cinema';
 import Center from './component/Center';
-
+console.log(pt);
 export default class App extends Component {
   state = {
     list: [
