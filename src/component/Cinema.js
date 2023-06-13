@@ -28,12 +28,13 @@ export default class Cinema extends Component {
   }
   handleSearch = (e) => {
     e.preventDefault();
-    this.setState({ search: e.target.value });
-    const newList = this.state.cinemasList.filter((c) =>
-      c.name.toLowerCase().includes(this.state.search.toLowerCase())
-    );
-    this.setState({ newList: newList });
-    console.log(this.state.search);
+    this.setState({ search: e.target.value }, () => {
+      const newList = this.state.cinemasList.filter((c) =>
+        c.name.toLowerCase().includes(this.state.search.toLowerCase())
+      );
+      this.setState({ newList: newList });
+      console.log(this.state.search);
+    });
   };
   render() {
     return (
