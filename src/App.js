@@ -1,25 +1,52 @@
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+import React, { Component } from 'react';
+import Film from './component/Film';
+import Cinema from './component/Cinema';
+import Center from './component/Center';
+
+export default class App extends Component {
+  state = {
+    list: [
+      {
+        id: 1,
+        text: '电影',
+      },
+      {
+        id: 2,
+        text: '影院',
+      },
+      {
+        id: 3,
+        text: '我的',
+      },
+    ],
+    current: 0,
+  };
+
+  render() {
+    return (
+      <div>
+        {this.state.current === 0 ? (
+          <Film />
+        ) : this.state.current === 1 ? (
+          <Cinema />
+        ) : (
+          <Center />
+        )}
+        <ul>
+          {this.state.list.map((item, index) => (
+            <li
+              key={item.id}
+              className={this.state.current === index ? 'active' : ''}
+              onClick={() => this.setState({ current: index })}
+            >
+              {item.text}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
