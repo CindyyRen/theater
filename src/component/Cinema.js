@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import BetterScroll from 'better-scroll';
 
 export default class Cinema extends Component {
   state = {
@@ -16,21 +17,34 @@ export default class Cinema extends Component {
         'X-Host': 'mall.film-ticket.cinema.list',
       },
     })
-      .then((res) => this.setState({ cinemasList: res.data.data.cinemas }))
-      .then(() => console.log(this.state.cinemasList));
+      .then((res) => {
+        this.setState({ cinemasList: res.data.data.cinemas })
+        new BetterScroll('.cinema-wrapper', {})
+      })
   }
 
   render() {
     return (
       <div>
-        <input/>
-        {this.state.cinemasList &&
-          this.state.cinemasList.map((item) => (
-            <dl key={item.id}>
-              <dt>{item.name}</dt>
-              <dd>{item.address}</dd>
-            </dl>
-          ))}
+        <input />
+        <div
+          className="cinema-wrapper"
+          style={{
+            height: '500px',
+            background: 'yellow',
+            overflow: 'hidden',
+          }}
+        >
+          <div className="cinemas-content">
+            {this.state.cinemasList &&
+              this.state.cinemasList.map((item) => (
+                <dl key={item.id}>
+                  <dt>{item.name}</dt>
+                  <dd>{item.address}</dd>
+                </dl>
+              ))}
+          </div>
+        </div>
       </div>
     );
   }
